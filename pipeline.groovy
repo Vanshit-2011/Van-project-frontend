@@ -3,14 +3,14 @@ pipeline {
 	stages {
 		stage ('code-pull') {
 			steps {
-				git branch: 'dev', url: 'https://github.com/srngx/project-frontend.git'
+				git branch: 'dev', url: 'https://github.com/Vanshit-2011/Van-project-frontend.git'
 			}
 		}
 		stage('code-build') {
 			steps {
 				sh '''
-					docker build . -t archsarangx/angular-frontend:latest
-					docker push archsarangx/angular-frontend:latest
+					docker build . -t vanshit967/angular-frontend:latest
+					docker push vanshit967/angular-frontend:latest
 					npm install
 					ng build
 				'''
@@ -20,7 +20,7 @@ pipeline {
 			steps {
 				withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-creds', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
 	sh '''
-		aws s3 cp --recursive dist/angular-frontend s3://cbz-2025-batch-latest-frontend-project-bux/
+		aws s3 cp --recursive dist/angular-frontend s3://vanshit-project-bucket/
 	'''
 }
 				
